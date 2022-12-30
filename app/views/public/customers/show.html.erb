@@ -1,1 +1,16 @@
 <h1>マイページ</h1>
+
+<h2>登録情報 <span><%= link_to "編集する", customers_information_edit_path %></span></h2>
+<table>
+  <tbody>
+    <tr>
+      <th>氏名</th>
+      <td><%= @customer.last_name %><%= @customer.first_name %></td>
+    </tr>
+    <tr>
+      <th></th>
+      <td></td>
+    </tr>
+    
+  </tbody>
+</table>

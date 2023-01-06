@@ -14,6 +14,7 @@ class Admin::ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
+    @genres =[[1, 'ケーキ'], [2, 'プリン'], [3, '焼き菓子'], [4, 'キャンディ']]
   end
 
   def edit

@@ -5,3 +5,5 @@
 <p>ジャンル <%= @genres[@item.genre_id] %></p>
 <p>税込価格（税抜価格）<%= (@item.price * 1.1).floor %></p>
 <p>販売ステータス <%= @item.is_active %></p>
+
+<button><%= link_to "編集する", edit_admin_item_path %></button>

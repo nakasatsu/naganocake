@@ -1,7 +1,7 @@
 <h2>商品編集</h2>
 
 <%= form_with model: @item, url: admin_item_path do |f| %>
-  <p>商品画像</p>
+  <p>商品画像 <%= f.file_field :image, accept: "image/*" %></p>
   <p>商品名 <%= f.text_field :name %></p>
   <p>商品説明 <%= f.text_area :introduction %></p>
   <p>ジャンル <%= f.select :genre_id, [["ケーキ", 1], ["プリン", 2], ["焼き菓子", 3], ["キャンディ", 4]] %></p>

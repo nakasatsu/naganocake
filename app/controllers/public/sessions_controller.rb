@@ -3,7 +3,7 @@
 class Public::SessionsController < Devise::SessionsController
 
   before_action :customer_state, only: [:create]
-  
+
   def after_sign_in_path_for(resource)
     root_path
   end
@@ -11,9 +11,9 @@ class Public::SessionsController < Devise::SessionsController
   def after_sign_out_path_for(resource)
     root_path
   end
-  
+
   protected
-  
+
   def customer_state
     # 【処理１】入力されたemailからアカウントを１件取得
     @customer = Customer.find_by(email: params[:customer][:email])

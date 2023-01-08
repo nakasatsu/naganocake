@@ -9,3 +9,7 @@
   <p>メールアドレス <%= f.text_field :email %></p>
   <%= f.submit "編集内容を保存" %>
 <% end %>
+
+<%= link_to customers_unsubscribe_path  do %>
+<button>退会する</button>
+<% end %>

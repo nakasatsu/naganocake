@@ -14,9 +14,15 @@ class Public::CustomersController < ApplicationController
   end
 
   def unsubscribe
+    @customer = current_customer
   end
 
   def withdraw
+    @customer = current_customer
+    @customer.update(is_deleted: true)
+    # ログアウトさせる
+    reset_session
+    redirect_to root_path
   end
 
 
@@ -25,4 +31,5 @@ class Public::CustomersController < ApplicationController
   def customer_params
     params.require(:customer).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :email, :postal_code, :address, :telephone_number)
   end
+
 end

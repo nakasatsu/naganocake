@@ -20,11 +20,11 @@ class Public::SessionsController < Devise::SessionsController
     # アカウントを取得できなかった場合、メソッドを終了する
     return if !@customer
     # 【処理２】取得したアカウントのパスワードと入力されたパスワードが一致しているかを判別
-    if @customer.valid_password?(params[:customer][:password])
+    if @customer.valid_password?(params[:customer][:password]) && @customer.is_deleted
       # 【処理３】１と２の処理がtrueなら、そのアカウントのis_deletedカラムを確認し、
       # trueの場合、サインアップ画面に遷移
+      redirect_to new_customer_registration_path
       # falseの場合、createアクションを実行させる
-      
     end
   end
   # before_action :configure_sign_in_params, only: [:create]

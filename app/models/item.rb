@@ -6,12 +6,12 @@ class Item < ApplicationRecord
   has_many :order_details
   belongs_to :genre
 
-  def get_image
+  def get_image(width, height)
     unless image.attached?
       file_path = Rails.root.join('app/assets/images/noimage_500.jpeg')
       image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
-    image.variant(resize_to_limit: [250, 200]).processed
+    image.variant(resize_to_limit: [width, height]).processed
   end
 
   def with_tax_price

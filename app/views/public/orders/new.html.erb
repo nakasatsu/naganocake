@@ -9,17 +9,17 @@
 <%= f.label :payment_method_transfer, Order.payment_methods_i18n[:transfer] %>
 
 <h5><strong>お届け先</strong></h5>
-<%= f.radio_button :select_adress, "0" %>
-<%= f.label :select_adress_0, "ご自身の住所" %><br>
+<%= f.radio_button :select_address, "0" %>
+<%= f.label :select_address_0, "ご自身の住所" %><br>
   〒<%= @customer.postal_code %> <%= @customer.address %><br>
   <%= @customer.last_name + @customer.first_name %><br>
 
-<%= f.radio_button :select_adress, "1" %>
-<%= f.label :select_adress_1, "登録済住所から選択" %><br>
-<%= f.select :adress_id, options_from_collection_for_select(current_customer.addresses, :id, :address_display) %><br>
+<%= f.radio_button :select_address, "1" %>
+<%= f.label :select_address_1, "登録済住所から選択" %><br>
+<%= f.select :address_id, options_from_collection_for_select(current_customer.addresses, :id, :address_display) %><br>
 
-<%= f.radio_button :select_adress, "2" %>
-<%= f.label :select_adress_2, "新しい住所" %><br>
+<%= f.radio_button :select_address, "2" %>
+<%= f.label :select_address_2, "新しい住所" %><br>
 <p>郵便番号（ハイフンなし） <%= f.text_field :postal_code %></p>
 <p>住所 <%= f.text_field :address, :size => "60" %></p>
 <p>宛名 <%= f.text_field :name %></p>

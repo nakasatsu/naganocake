@@ -12,7 +12,7 @@ class Public::OrdersController < ApplicationController
       @order.shipping_cost = 800
       @order.postal_code = current_customer.postal_code
       @order.address = current_customer.address
-      @order.name = current_customer.first_name + current_customer.last_name
+      @order.name = current_customer.last_name + current_customer.first_name
     elsif params[:order][:select_address] == "1"
       @order = Order.new(order_params)
       @order.shipping_cost = 800
@@ -30,6 +30,17 @@ class Public::OrdersController < ApplicationController
   end
 
   def create
+    @order = Order.new(order_params)
+    @order.customer_id = current_customer.id
+    if @order.payment_method == "credit_card"
+      @order.payment_method = Order.payment_methods[:credit_card]
+    elsif @order.payment_method == "transfer"
+      @order.payment_method = Order.paymentmethods[:transfer]
+    end
+    binding.pry
+    @order.save
+    @order_detail = OrderDetail.new(order_detail_params)
+    redirect_to orders_complete_path
   end
 
   def index
@@ -41,7 +52,10 @@ class Public::OrdersController < ApplicationController
   private
   
   def order_params
-    params.require(:order).permit(:payment_method, :postal_code, :address, :name)
+    params.require(:order).permit(:payment_method, :postal_code, :address, :name, :shipping_cost, :total_payment)
   end
-
+  
+  def order_detail_params
+    params.require(:order_detail).permit()
+  end
 end

@@ -37,9 +37,15 @@ class Public::OrdersController < ApplicationController
     elsif @order.payment_method == "transfer"
       @order.payment_method = Order.paymentmethods[:transfer]
     end
-    binding.pry
     @order.save
     @order_detail = OrderDetail.new(order_detail_params)
+    @order_detail.order_id = @order.id
+    @cart_items = current_customer.cart_items
+    @cart_item = @cart_items.find_by(item_id: params[:cart_item][:item_id])
+    @order_detail.item_id = @cart_item.item_id
+    @order_detail.price = @cart_item.item.with_tax_price
+    @order_detail.amount = @cart_item.amount
+    @order_detail.save
     redirect_to orders_complete_path
   end
 
@@ -56,6 +62,6 @@ class Public::OrdersController < ApplicationController
   end
   
   def order_detail_params
-    params.require(:order_detail).permit()
+    params.require(:order_detail).permit(:order_id, :item_id, :price, :amount)
   end
 end

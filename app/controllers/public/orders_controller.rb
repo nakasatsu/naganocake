@@ -32,20 +32,23 @@ class Public::OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
-    if @order.payment_method == "credit_card"
-      @order.payment_method = Order.payment_methods[:credit_card]
-    elsif @order.payment_method == "transfer"
-      @order.payment_method = Order.paymentmethods[:transfer]
-    end
+    # if @order.payment_method == "credit_card"
+      # @order.payment_method = Order.payment_methods[:credit_card]
+    # elsif @order.payment_method == "transfer"
+      # @order.payment_method = Order.paymentmethods[:transfer]
+    # end
     @order.save
-    @order_detail = OrderDetail.new(order_detail_params)
-    @order_detail.order_id = @order.id
+    
     @cart_items = current_customer.cart_items
-    @cart_item = @cart_items.find_by(item_id: params[:cart_item][:item_id])
-    @order_detail.item_id = @cart_item.item_id
-    @order_detail.price = @cart_item.item.with_tax_price
-    @order_detail.amount = @cart_item.amount
-    @order_detail.save
+    @cart_items.each do |cart_item|
+      order_detail = OrderDetail.new
+      order_detail.order_id = @order.id
+      order_detail.item_id = cart_item.item_id
+      order_detail.price = cart_item.item.with_tax_price
+      order_detail.amount = cart_item.amount
+      order_detail.save
+    end
+    @cart_items.destroy_all
     redirect_to orders_complete_path
   end
 

@@ -1,0 +1,48 @@
+<h4>注文履歴一覧</h4>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>注文日</th>
+      <th>配送先</th>
+      <th>注文商品</th>
+      <th>支払金額</th>
+      <th>ステータス</th>
+      <th>注文詳細</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+    <tr>
+      
+      <td><%= order.created_at.strftime('%Y/%m/%d') %></td>
+      <td>
+        〒 <%= order.postal_code %><br>
+        <%= order.address %><br>
+        <%= order.name %>
+      </td>
+      
+      <td>
+        <% order.order_details.each do |order_detail| %>
+          <%= order_detail.item.name %><br>
+        <% end %>
+      </td>
+      <td><%= order.total_payment.to_s(:delimited) %>円</td>
+      <td>
+        <% if order.order_status == "waiting" %>
+          <%= Order.order_statuses_i18n[:waiting] %>
+        <% elsif order.order_status == "confirmed" %>
+          <%= Order.order_statuses_i18n[:confirmed] %>
+        <% elsif order.order_status == "making" %>
+          <%= Order.order_statuses_i18n[:making] %>
+        <% elsif order.order_status == "hipping_preparation" %>
+          <%= Order.order_statuses_i18n[:hipping_preparation] %>
+        <% elsif order.order_status == "shipped" %>
+          <%= Order.order_statuses_i18n[:shipped] %>
+        <% end %>
+      </td>
+      <td><%= link_to "表示する", order_path(order.id) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

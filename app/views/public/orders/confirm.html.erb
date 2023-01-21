@@ -57,7 +57,7 @@
 <%= f.hidden_field :address, :value => @order.address %>
 <%= f.hidden_field :name, :value => @order.name %>
 <%= f.hidden_field :shipping_cost, :value => @order.shipping_cost %>
-<%= f.hidden_field :total_payment, :value => (@total + @order.shipping_cost).to_s(:delimited) %>
+<%= f.hidden_field :total_payment, :value => (@total + @order.shipping_cost).to_i %>
 <%= f.hidden_field :payment_method, :value => @order.payment_method %>
 <%= f.submit "注文を確定する" %>
 <% end %>

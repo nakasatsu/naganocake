@@ -1,0 +1,47 @@
+<h4>注文履歴詳細</h4>
+
+<p><strong>購入者</strong><%= @order.customer.last_name + @order.customer.first_name %></p>
+<p><strong>注文日</strong><%= @order.created_at.strftime('%Y/%m/%d') %></p>
+<p>
+  <strong>配送先</strong>
+  〒 <%= @order.postal_code + @order.address %><br>
+  <%= @order.name %>
+</p>
+<p><strong>支払方法</strong><%= @order.payment_method %></p>
+<p><strong>注文ステータス</strong>
+  <%= form_with model: @order, url: admin_order_path(@order.id) do |f| %>
+    <%= f.select :order_status, [[Order.order_statuses_i18n[:waiting], Order.order_statuses.key(0)], [Order.order_statuses_i18n[:confirmed], Order.order_statuses.key(1)], [Order.order_statuses_i18n[:making], Order.order_statuses.key(2)], [Order.order_statuses_i18n[:shipping_preparation], Order.order_statuses.key(3)], [Order.order_statuses_i18n[:shipped], Order.order_statuses.key(4)]] %>
+    <%= f.submit "更新" %>
+  <% end %>
+</p>
+
+<table>
+  <thead>
+    <th>商品名</th>
+    <th>単価（税込）</th>
+    <th>数量</th>
+    <th>小計</th>
+    <th>製作ステータス</th>
+  </thead>
+  <tbody>
+    <% @order.order_details.each do |order_detail| %>
+    <tr>
+      <td><%= order_detail.item.name %></td>
+      <td><%= order_detail.price.to_s(:delimited) %></td>
+      <td><%= order_detail.amount %></td>
+      <td><%= (order_detail.price * order_detail.amount).to_s(:delimited) %></td>
+      <td>
+        <%= form_with model: order_detail, url: admin_order_detail_path(order_detail.id) do |f| %>
+          <%= f.select :making_status, [[OrderDetail.making_statuses_i18n[:cannot_making], OrderDetail.making_statuses.key(0)], [OrderDetail.making_statuses_i18n[:waiting], OrderDetail.making_statuses.key(1)], [OrderDetail.making_statuses_i18n[:making], OrderDetail.making_statuses.key(2)], [OrderDetail.making_statuses_i18n[:finished], OrderDetail.making_statuses.key(3)]] %>
+          <%= f.submit "更新" %>
+        <% end %>
+      </td>
+      <% @total += order_detail.price * order_detail.amount %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p><strong>商品合計</strong><%= @total.to_s(:delimited) %>円</p>
+<p><strong>送料</strong><%= @order.shipping_cost %>円</p>
+<p><strong>請求金額合計</strong><%= @order.total_payment.to_s(:delimited) %>円</p>

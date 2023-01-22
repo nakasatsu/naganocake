@@ -35,8 +35,8 @@
           <%= Order.order_statuses_i18n[:confirmed] %>
         <% elsif order.order_status == "making" %>
           <%= Order.order_statuses_i18n[:making] %>
-        <% elsif order.order_status == "hipping_preparation" %>
-          <%= Order.order_statuses_i18n[:hipping_preparation] %>
+        <% elsif order.order_status == "shipping_preparation" %>
+          <%= Order.order_statuses_i18n[:shipping_preparation] %>
         <% elsif order.order_status == "shipped" %>
           <%= Order.order_statuses_i18n[:shipped] %>
         <% end %>

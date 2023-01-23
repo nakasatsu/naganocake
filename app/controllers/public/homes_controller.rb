@@ -1,6 +1,7 @@
 class Public::HomesController < ApplicationController
   def top
-    @items = Item.last(4)
+    # 最新の商品を降順に表示
+    @items = Item.order(created_at: :desc).first(4)
   end
 
   def about

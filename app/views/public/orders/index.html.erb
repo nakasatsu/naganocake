@@ -29,17 +29,7 @@
       </td>
       <td><%= order.total_payment.to_s(:delimited) %>円</td>
       <td>
-        <% if order.order_status == "waiting" %>
-          <%= Order.order_statuses_i18n[:waiting] %>
-        <% elsif order.order_status == "confirmed" %>
-          <%= Order.order_statuses_i18n[:confirmed] %>
-        <% elsif order.order_status == "making" %>
-          <%= Order.order_statuses_i18n[:making] %>
-        <% elsif order.order_status == "shipping_preparation" %>
-          <%= Order.order_statuses_i18n[:shipping_preparation] %>
-        <% elsif order.order_status == "shipped" %>
-          <%= Order.order_statuses_i18n[:shipped] %>
-        <% end %>
+        <%= order.order_status_i18n %>
       </td>
       <td><%= link_to "表示する", order_path(order.id) %></td>
     </tr>

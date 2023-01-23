@@ -11,7 +11,7 @@
   〒 <%= @order.postal_code + @order.address %><br>
   <%= @order.name %>
 </p>
-<p><strong>支払方法</strong><%= @order.payment_method %></p>
+<p><strong>支払方法</strong><%= @order.payment_method_i18n %></p>
 <p><strong>注文ステータス</strong>
   <%= form_with model: @order, url: admin_order_path(@order.id) do |f| %>
     <%= f.select :order_status, [[Order.order_statuses_i18n[:waiting], Order.order_statuses.key(0)], [Order.order_statuses_i18n[:confirmed], Order.order_statuses.key(1)], [Order.order_statuses_i18n[:making], Order.order_statuses.key(2)], [Order.order_statuses_i18n[:shipping_preparation], Order.order_statuses.key(3)], [Order.order_statuses_i18n[:shipped], Order.order_statuses.key(4)]] %>

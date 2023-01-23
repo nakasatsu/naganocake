@@ -17,9 +17,19 @@
       </td>
       <td><%= order.customer.last_name + order.customer.first_name %></td>
       <td>
+        <!--@total_amountの値をリセットする-->
+        <% @total_amount = 0 %>
+        <% order.order_details.each do |order_detail| %>
+          <!--order_detailのamountを全て足し合わせる-->
+          <% @total_amount += order_detail.amount %>
+        <% end %>
+        <!--計算した値を表示-->
+        <%= @total_amount %>
       </td>
-      <td><%= order.order_status %></td>
+      <td><%= order.order_status_i18n %></td>
     </tr>
     <% end %>
   </tbody>
 </table>
+
+<%= paginate @orders %>

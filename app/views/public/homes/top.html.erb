@@ -1,18 +1,39 @@
-<h1>top page</h1>
-
-<p>
-  ようこそ、ながのCAKEへ！</br>
-  このサイトは、ケーキ販売のECサイトになります。</br>
-  会員でない方も商品の閲覧はできますが、</br>
-  購入には会員登録が必要になります。</br>
-</p>
-
-<h5><strong>新着商品</strong></h5>
-<% @items.each do |item| %>
-  <%= link_to item_path(item.id) do %>
-  <p><%= image_tag item.get_image(250, 200) %></p>
-  <p><%= item.name %></p>
-  <% end %>
-  <p>¥<%= item.with_tax_price.to_s(:delimited) %></p>
-<% end %>
-<%= link_to "全ての商品を見る >", items_path %>
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-2 border border-secondary"></div>
+    <div class="col-9 offset-1">
+      <div class="row">
+        <p>
+          ようこそ、ながのCAKEへ！</br>
+          このサイトは、ケーキ販売のECサイトになります。</br>
+          会員でない方も商品の閲覧はできますが、</br>
+          購入には会員登録が必要になります。</br>
+        </p>
+      </div>
+      
+      <div class="row">
+        <h3><strong>新着商品</strong></h3>
+      </div>
+      
+      <div class="row">
+        <% @items.each do |item| %>
+        <div class="d-flex">
+          <div class="card">
+            <%= link_to item_path(item.id) do %>
+              <%= image_tag item.get_image(230, 150), class:"card-img-top" %>
+            <div class="card-body">
+              <h5 class="card-title"><%= item.name %></h5>
+            <% end %>
+              <p class="card-text">¥<%= item.with_tax_price.to_s(:delimited) %></p>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </div>
+      
+      <div class="row">
+        <%= link_to "全ての商品を見る >", items_path %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -16,8 +16,8 @@
           <tr>
             <th class="bg-light">配送先</th>
             <td>
-              〒 <%= @order.postal_code %>
-              <%= @order.address %>
+              〒 <%= @order.postal_code %><br>
+              <%= @order.address %><br>
               <%= @order.name %>
             </td>
           </tr>
@@ -40,15 +40,15 @@
         <table class="table table-bordered">
           <tr>
             <th class="bg-light">商品合計</th>
-            <td><%= @order.total_payment - @order.shipping_cost %></td>
+            <td><%= (@order.total_payment - @order.shipping_cost).to_s(:delimited) %></td>
           </tr>
           <tr>
             <th class="bg-light">配送料</th>
-            <td><%= @order.shipping_cost %></td>
+            <td><%= @order.shipping_cost.to_s(:delimited) %></td>
           </tr>
           <tr>
             <th class="bg-light"><strong>ご請求額</strong></th>
-            <td><%= @order.total_payment %></td>
+            <td><%= @order.total_payment.to_s(:delimited) %></td>
           </tr>
         </table>
       </div>
@@ -58,7 +58,7 @@
     <div class="row">
       <h6><strong>注文内容</strong></h6>
     </div>
-    <div class="row mt-4 ml-0">
+    <!--<div class="row mt-4 ml-0">-->
       <table class="table table-bordered">
         <thead class="bg-light">
           <th>商品</th>
@@ -70,13 +70,13 @@
           <% @order.order_details.each do |order_detail| %>
           <tr>
             <td><%= order_detail.item.name %></td>
-            <td><%= order_detail.price %></td>
+            <td><%= order_detail.price.to_s(:delimited) %></td>
             <td><%= order_detail.amount %></td>
-            <td><%= order_detail.price * order_detail.amount %></td>
+            <td><%= (order_detail.price * order_detail.amount).to_s(:delimited) %></td>
           </tr>
           <% end %>
         </tbody>
       </table>
-    </div>
+    <!--</div>-->
   </div>
 </div>

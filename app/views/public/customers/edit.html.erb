@@ -17,22 +17,18 @@
     <tr>
       <th scope="row">郵便番号</th>
       <td colspan="2"><%= f.text_field :postal_code, class: "border border-dark border-2 rounded" %></td>
-      
     </tr>
     <tr>
       <th scope="row">住所</th>
       <td colspan="2"><%= f.text_field :address, :size => "60", class: "border border-dark border-2 rounded" %></td>
-      
     </tr>
     <tr>
       <th scope="row">電話番号</th>
       <td colspan="2"><%= f.text_field :telephone_number, class: "border border-dark border-2 rounded" %></td>
-      
     </tr>
     <tr>
       <th scope="row">メールアドレス</th>
       <td colspan="2"><%= f.text_field :email, class: "border border-dark border-2 rounded" %></td>
-      
     </tr>
     <tr>
       <th scope="row"></th>
@@ -40,7 +36,6 @@
       <% end %>
       <td class="text-center">
         <%= link_to "退会する", customers_unsubscribe_path, class: "btn btn-danger" %>
-        
       </td>
     </tr>
   </table>

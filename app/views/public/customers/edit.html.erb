@@ -1,15 +1,47 @@
-<h2>会員情報編集</h2>
-
-<%= form_with model: @customer, url: customers_information_path do |f| %>
-  <p>氏名 <%= f.text_field :last_name %> <%= f.text_field :first_name %></p>
-  <p>フリガナ <%= f.text_field :last_name_kana %> <%= f.text_field :first_name_kana %></p>
-  <p>郵便番号 <%= f.text_field :postal_code %></p>
-  <p>住所 <%= f.text_field :address %></p>
-  <p>電話番号 <%= f.text_field :telephone_number %></p>
-  <p>メールアドレス <%= f.text_field :email %></p>
-  <%= f.submit "編集内容を保存" %>
-<% end %>
-
-<%= link_to customers_unsubscribe_path  do %>
-<button>退会する</button>
-<% end %>
+<div class="container">
+  <div class="row my-4 ml-5">
+    <h4 class="bg-light text-center">会員情報編集</h4>
+  </div>
+  <table class="table table-borderless">
+    <tr>
+      <%= form_with model: @customer, url: customers_information_path do |f| %>
+      <th scope="row", style="width: 15%">氏名</th>
+      <td style="width: 20%"><%= f.text_field :last_name, class: "border border-dark border-2 rounded" %></td>
+      <td><%= f.text_field :first_name, class: "border border-dark border-2 rounded" %></td>
+    </tr>
+    <tr>
+      <th scope="row">フリガナ</th>
+      <td><%= f.text_field :last_name_kana, class: "border border-dark border-2 rounded" %></td>
+      <td><%= f.text_field :first_name_kana, class: "border border-dark border-2 rounded" %></td>
+    </tr>
+    <tr>
+      <th scope="row">郵便番号</th>
+      <td colspan="2"><%= f.text_field :postal_code, class: "border border-dark border-2 rounded" %></td>
+      
+    </tr>
+    <tr>
+      <th scope="row">住所</th>
+      <td colspan="2"><%= f.text_field :address, :size => "60", class: "border border-dark border-2 rounded" %></td>
+      
+    </tr>
+    <tr>
+      <th scope="row">電話番号</th>
+      <td colspan="2"><%= f.text_field :telephone_number, class: "border border-dark border-2 rounded" %></td>
+      
+    </tr>
+    <tr>
+      <th scope="row">メールアドレス</th>
+      <td colspan="2"><%= f.text_field :email, class: "border border-dark border-2 rounded" %></td>
+      
+    </tr>
+    <tr>
+      <th scope="row"></th>
+      <td><%= f.submit "編集内容を保存", class: "btn btn-success" %></td>
+      <% end %>
+      <td class="text-center">
+        <%= link_to "退会する", customers_unsubscribe_path, class: "btn btn-danger" %>
+        
+      </td>
+    </tr>
+  </table>
+</div>

@@ -6,30 +6,32 @@
   <%= form_with model: @item, url: admin_items_path do |f| %>
   <div class="d-flex justify-content-start col-8 mx-auto">
     <p class="col-3"><%= f.label :"商品画像" %></p>
-    <p class="col-5"><%= f.file_field :image, accept: "image/*" %></p>
+    <p class="col-6"><%= f.file_field :image, accept: "image/*" %></p>
   </div>
   <div class="d-flex justify-content-start col-8 mx-auto">
     <p class="col-3"><%= f.label :"商品名" %></p>
-    <p class="col-5"><%= f.text_field :name %></p>
+    <p class="col-6"><%= f.text_field :name, :size => "30" %></p>
   </div>
   <div class="d-flex justify-content-start col-8 mx-auto">
     <p class="col-3"><%= f.label :"商品説明" %></p>
-    <p class="col-5"><%= f.text_area :introduction %></p>
+    <p class="col-6"><%= f.text_area :introduction, :size => "30" %></p>
   </div>
   <div class="d-flex justify-content-start col-8 mx-auto">
     <p class="col-3"><%= f.label :"ジャンル" %></p>
-    <p class="col-5"><%= f.select :genre_id, [["ケーキ", 1], ["プリン", 2], ["焼き菓子", 3], ["キャンディ", 4]], include_blank: "-- 選択してください --" %></p>
+    <p class="col-6"><%= f.select :genre_id, [["ケーキ", 1], ["プリン", 2], ["焼き菓子", 3], ["キャンディ", 4]], include_blank: "-- 選択してください --" %></p>
   </div>
   <div class="d-flex justify-content-start col-8 mx-auto">
     <p class="col-3"><%= f.label :"販売価格" %></p>
-    <p class="col-5"><%= f.text_field :price %>円</p>
+    <p class="col-6"><%= f.text_field :price, :size => "30" %>円</p>
   </div>
   <div class="d-flex justify-content-start col-8 mx-auto">
     <p class="col-3"><%= f.label :"販売ステータス" %></p>
-    <p class="col-5"><%= f.radio_button :is_active, true %>
+    <p class="col-6">
+      <%= f.radio_button :is_active, true %>
       <%= f.label :is_active, '販売中', value: true %>
       <%= f.radio_button :is_active, false %>
-      <%= f.label :is_active, '販売停止中', value: false %></p>
+      <%= f.label :is_active, '販売停止中', value: false %>
+    </p>
   </div>
   <div class="d-flex justify-content-start col-8 mx-auto">
     <p class="col-3"></p>

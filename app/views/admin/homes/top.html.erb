@@ -1,35 +1,46 @@
-<h4>注文履歴一覧</h4>
+<div class="container">
+  <div class="row my-4">
+    <h4 class="bg-light text-center h-auto col-2">注文履歴一覧</h4>
+  </div>
+  
+  <table class="table col-10 mx-auto">
+    <thead class="bg-light">
+      <tr>
+        <th>購入日時</th>
+        <th>購入者</th>
+        <th>注文個数</th>
+        <th>注文ステータス</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td class="align-middle">
+            <%= link_to admin_order_path(order.id) do %>
+              <%= order.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
+            <% end %>
+          </td>
+          <td class="align-middle">
+            <%= order.customer.last_name + order.customer.first_name %>
+          </td>
+          <td class="align-middle">
+            <!--@total_amountの値をリセットする-->
+            <% @total_amount = 0 %>
+            <% order.order_details.each do |order_detail| %>
+            <!--order_detailのamountを全て足し合わせる-->
+            <% @total_amount += order_detail.amount %>
+            <% end %>
+            <!--計算した値を表示-->
+            <%= @total_amount %>
+          </td>
+          <td class="align-middle"><%= order.order_status_i18n %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  
+  <div class="d-flex justify-content-center my-5">
+    <%= paginate @orders %>
+  </div>
+</div>
 
-<table>
-  <thead>
-    <th>購入日時</th>
-    <th>購入者</th>
-    <th>注文個数</th>
-    <th>注文ステータス</th>
-  </thead>
-  <tbody>
-    <% @orders.each do |order| %>
-    <tr>
-      <td>
-        <%= link_to admin_order_path(order.id) do %>
-          <%= order.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
-        <% end %>
-      </td>
-      <td><%= order.customer.last_name + order.customer.first_name %></td>
-      <td>
-        <!--@total_amountの値をリセットする-->
-        <% @total_amount = 0 %>
-        <% order.order_details.each do |order_detail| %>
-          <!--order_detailのamountを全て足し合わせる-->
-          <% @total_amount += order_detail.amount %>
-        <% end %>
-        <!--計算した値を表示-->
-        <%= @total_amount %>
-      </td>
-      <td><%= order.order_status_i18n %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%= paginate @orders %>

@@ -3,25 +3,21 @@
     <h4 class="bg-light text-center">配送先登録 / 一覧</h4>
   </div>
   <div class="row">
-    <table class="table table-borderless">
-      <%= form_with model: @address, url: addresses_path, method: :post do |f| %>
-      <tr>
-        <th style="width: 20%">郵便番号（ハイフンなし）</th>
-        <td style="width: 40%"><%= f.text_field :postal_code, class: "border border-dark border-2 rounded" %></td>
-        <td style="width: 40%"></td>
-      </tr>
-      <tr>
-        <th>住所</th>
-        <td><%= f.text_field :address, :size => "50", class: "border border-dark border-2 rounded" %></td>
-        <td></td>
-      </tr>
-      <tr>
-        <th>宛名</th>
-        <td><%= f.text_field :name, class: "border border-dark border-2 rounded" %></td>
-        <td><%= f.submit "新規登録", class: "btn btn-success" %></td>
-      </tr>
-      <% end %>
-    </table>
+    <%= form_with model: @address, url: addresses_path, method: :post do |f| %>
+      <div class="d-flex">
+        <p class="col-6 font-weight-bold">郵便番号（ハイフンなし）</p>
+        <p class="col"><%= f.text_field :postal_code, class: "border border-dark border-2 rounded" %></p>
+      </div>
+      <div class="d-flex">
+        <p class="col-6 font-weight-bold">住所</p>
+        <p class="col"><%= f.text_field :address, :size => "50", class: "border border-dark border-2 rounded" %></p>
+      </div>
+      <div class="d-flex">
+        <p class="col-6 font-weight-bold">宛名</p>
+        <p class="col-10"><%= f.text_field :name, class: "border border-dark border-2 rounded" %></p>
+        <p class="col"><%= f.submit "新規登録", class: "btn btn-success" %></p>
+      </div>
+    <% end %>
   </div>
   <table class="col-10 table table-bordered">
     <thead class="bg-light">
@@ -46,6 +42,3 @@
     </tbody>
   </table>
 </div>
-
-  
-

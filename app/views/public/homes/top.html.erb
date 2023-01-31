@@ -18,7 +18,7 @@
       <div class="row">
         <% @items.each do |item| %>
         <div class="d-flex">
-          <div class="card boder-0 mr-3">
+          <div class="card mr-3", style="width: 12rem;">
             <%= link_to item_path(item.id) do %>
               <%= image_tag item.get_image(180, 130), class:"card-img-top" %>
             <div class="card-body">
